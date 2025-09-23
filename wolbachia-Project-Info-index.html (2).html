@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Proyecto - Ciencia Comunitaria y Control Vectorial</title>
+    <link rel="stylesheet" href="wolbachia1.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+
+<style>
+        /* CSS integrado */
+
+        /* Fuentes */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        /* Variables de color */
+        :root {
+            --color-oscuro-1: #1e3a3e;
+            --color-oscuro-2: #2d5259;
+            --color-medio: #e0f2fe;
+            --color-blanco: #ffffff;
+        }
+
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--color-blanco);
+            color: var(--color-oscuro-1);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        header {
+            background-color: var(--color-oscuro-1);
+            color: var(--color-blanco);
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+
+        /* Logo dentro del header */
+        header .container > img {
+            max-width: 180px; /* Tamaño igual al logo anterior */
+            height: auto;
+            margin-bottom: 1rem;
+        }
+
+        header h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        /* Secciones */
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h2, h3, h4, h5 {
+            color: var(--color-oscuro-2);
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-bottom: 3px solid var(--color-medio);
+            padding-bottom: 0.3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            margin-top: 1rem;
+        }
+
+        h4 {
+            font-size: 1.3rem;
+            margin-top: 1rem;
+        }
+
+        h5 {
+            font-size: 1.1rem;
+            margin-top: 0.8rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: var(--color-oscuro-1);
+        }
+
+        ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-oscuro-1);
+        }
+
+        ul li {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-oscuro-1);
+        }
+
+        ol li {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--color-medio);
+            color: var(--color-blanco);
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.4rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            h3 {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Grid de imágenes */
+        .image-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 2px;
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: #000;
+        width: 100%;
+        margin: 0 auto;
+        max-width: 600px;
+        height: 400px;
+        position: relative;
+        }
+
+        .big-image {
+        grid-row: 1 / span 2;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        }
+
+        .right-images {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        gap: 2px;
+        height: 100%;
+        border-radius: 0 10px 10px 0;
+        overflow: hidden;
+        }
+
+        .right-images img,
+        .image-grid img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.4s ease, box-shadow 0.4s ease, filter 0.4s ease;
+        cursor: pointer;
+        }
+
+        .image-grid img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        filter: brightness(1.1);
+        }
+
+        /* 🌐 Media query para pantallas pequeñas */
+        @media (max-width: 600px) {
+        .image-grid {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto;
+            height: auto;
+        }
+
+        .big-image {
+            grid-row: auto;
+            height: 200px;
+        }
+
+        .right-images {
+            grid-column: auto;
+            grid-row: auto;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: none;
+            height: 100px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .right-images img {
+            height: 100%;
+        }
+        }
+
+        /* Grid de imágenes 2*/
+        .image-grid2 {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 2px;
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: #000;
+        width: 100%;
+        margin: 0 auto;
+        max-width: 600px;
+        height: 400px;
+        position: relative;
+        }
+
+        .big-image2 {
+        grid-row: 1 / span 2;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        }
+
+        .right-images2 {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        gap: 2px;
+        height: 100%;
+        border-radius: 0 10px 10px 0;
+        overflow: hidden;
+        }
+
+        .right-images2 img,
+        .image-grid2 img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.4s ease, box-shadow 0.4s ease, filter 0.4s ease;
+        cursor: pointer;
+        }
+
+        .image-grid2 img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        filter: brightness(1.1);
+        }
+
+        /* 🌐 Media query para pantallas pequeñas */
+        @media (max-width: 600px) {
+        .image-grid2 {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto;
+            height: auto;
+        }
+
+        .big-image2 {
+            grid-row: auto;
+            height: 200px;
+        }
+
+        .right-images2 {
+            grid-column: auto;
+            grid-row: auto;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: none;
+            height: 100px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .right-images2 img {
+            height: 100%;
+        }
+        }
+
+        /* Botón Página 1 */
+        .pag2 {
+            /* Apariencia y color */
+            background-color: white; /* Color de fondo blanco */
+            color: rgb(3, 3, 3);             /* Color del texto blanco */
+            border: none;             /* Sin borde */
+            border-radius: 0px;       /* Esquinas redondeadas */
+
+            /* Espaciado */
+            padding: 10px 32px;       /* 15px arriba/abajo, 32px a los lados */
+
+            /* Texto */
+            text-align: center;       /* Centrar el texto */
+            text-decoration: none;    /* Quitar el subrayado del enlace */
+            font-size: 16px;          /* Tamaño de la letra */
+            font-family: Arial, sans-serif; /* Tipo de letra */
+
+            /* Comportamiento */
+            display: flex;             /* 1. Activa Flexbox */
+            justify-content: center;    /* Permite definir ancho y alto */
+            cursor: pointer;          /* Cambia el cursor a una manito */
+        }
+
+        /* Efecto al pasar el mouse por encima (opcional pero recomendado) */
+        .pag2:hover {
+            background-color: #e0f2fe; /* Un azul más claro */
+        }
+</style>    
+
+<body>
+    <header>
+        <div class="container">
+            <img src="https://iili.io/KuOh95P.jpg" alt="Proyecto Ciencia Comunitaria y de Control Vectorial con Enfoque Sociodemográfico" />
+            <h1>Proyecto "Ciencia Comunitaria y de Control Vectorial con Enfoque Sociodemográfico”</h1>
+        </div>
+    </header>   
+
+        <section id="integrantes-equipo">
+            <h2>Integrantes del Equipo:</h2>
+            <ul>
+                <li>
+                    <strong>JHON ALEXANDER MONSALVE</strong>
+                </li>
+                <li>
+                    <strong>ANDREY ESTRADA GONZÁLEZ</strong>
+                </li>
+                <li>
+                    <strong>ALESSANDRA ECHAVARRIA CASTRO</strong>
+                </li>
+            </ul>
+        </section>
+
+    <main class="container">
+        <section id="contexto">
+            <h2>Contexto</h2>
+            <p>
+                Las enfermedades transmitidas por virus como el dengue, el zika y el chikungunya, representan un serio problema de salud pública a nivel global, especialmente en regiones tropicales y subtropicales. La proliferación de mosquitos como el <em>Aedes aegypti</em> y la falta de control efectivo son factores clave en la transmisión de estas enfermedades.
+            </p>
+            <p>
+                En Colombia, el <em>Aedes aegypti</em> es el principal transmisor de estos virus, afectando desproporcionadamente a poblaciones con vulnerabilidades socioeconómicas. El World Mosquito Program (WMP) ha demostrado la eficacia de la bacteria <strong>Wolbachia</strong> como un método de control biológico innovador para reducir la capacidad del mosquito de transmitir estos virus, presentando una alternativa prometedora a los métodos de control tradicionales.
+            </p>
+
+            <div class="image-grid" aria-label="Imágenes de mosquitos transmisores">
+                <img src="https://iili.io/Ku8XdUx.webp" alt="Mosquito grande" class="big-image" />
+                <div class="right-images">
+                    <img src="https://iili.io/Ku8XBx1.jpg" alt="Mosquito pequeño arriba" />
+                    <img src="https://iili.io/Ku8XKOB.jpg" alt="Mosquito pequeño abajo" class="highlight" />
+                </div>
+            </div>
+
+            <p>
+                El World Mosquito Program hace parte de una colaboración internacional dirigida por la Universidad de Monash, Australia con proyectos operativos en 14 países y liderada en Colombia por el PECET -Programa de Estudio y Control de Enfermedades Tropicales- de la Universidad de Antioquia.
+            </p>
+            <p>
+                Según datos a 31 de diciembre de 2024, la inserción de mosquitos Wolbachia ha protegido a más de 13 millones de personas a nivel mundial, ya que el seguimiento muestra que la transmisión del virus se reduce considerablemente en las zonas donde Wolbachia se mantiene a un nivel elevado.
+            </p>
+            <div class="image-grid2" aria-label="Imágenes de trabajo en laboratorio">
+                <img src="https://iili.io/KugT6Dx.png" alt="Laboratorio grande" class="big-image2" />
+                <div class="right-images2">
+                    <img src="https://iili.io/KugTioQ.png" alt="Laboratorio pequeño arriba" />
+                    <img src="https://iili.io/KugTmHg.png" alt="Científico pequeño abajo" class="highlight" />
+                </div>
+            </div>
+
+        </section>
+
+        <section id="planteamiento-problema">
+            <h2>Planteamiento del problema</h2>
+            <p>
+                Los programas de control vectorial tradicionales a menudo carecen de un enfoque integral que considere la participación comunitaria y las variables sociodemográficas que influyen en la propagación de estas enfermedades. Esto resulta en intervenciones de control ineficientes y desiguales que no abordan las causas subyacentes de la transmisión.
+            </p>
+            <p>
+                A pesar de la disponibilidad de datos abiertos de entidades gubernamentales y de programas innovadores como el del WMP, existe una brecha de información que impide que las comunidades comprendan el riesgo real y tomen medidas preventivas. Además, la recopilación y visualización de datos no siempre son accesibles para todos, lo que genera una brecha de conocimiento y una falta de equidad en la distribución de recursos y en la toma de decisiones.
+            </p>
+            <p>
+                No se aprovecha el potencial de la ciencia ciudadana ni la perspectiva comunitaria para generar un control vectorial más efectivo y sostenible.
+            </p>
+        </section>
+
+        <section id="objetivos">
+            <h2>Objetivos</h2>
+            <h3>Objetivo general</h3>
+            <p>
+                Desarrollar una plataforma de análisis de datos que integre información epidemiológica y social para el control vectorial de enfermedades transmitidas por mosquitos, utilizando los datos del World Mosquito Program (WMP) y la Plataforma Nacional de Datos Abiertos de Colombia. La finalidad es empoderar a las comunidades para que participen activamente en la vigilancia y la toma de decisiones, promoviendo un control más equitativo y consciente.
+            </p>
+
+            <h3>Objetivos específicos</h3>
+            <ol>
+                <li>Diseñar y desarrollar una plataforma web que permita la integración de datos de la Plataforma Nacional de Datos Abiertos de Colombia y del World Mosquito Program (WMP).</li>
+                <li>Implementar un módulo de análisis de datos que combine las variables epidemiológicas y sociodemográficas para identificar zonas de alto riesgo y factores de vulnerabilidad.</li>
+                <li>Crear herramientas de visualización de datos que muestren de manera clara y accesible los patrones de riesgo, el impacto de Wolbachia y la distribución de casos, utilizando mapas interactivos y gráficos.</li>
+                <li>Generar conciencia a través de contenidos educativos y materiales informativos dentro de la plataforma que expliquen el ciclo de vida de los virus y el funcionamiento de Wolbachia, fomentando la participación ciudadana.</li>
+                <li>Fomentar la ciencia comunitaria al permitir a los usuarios reportar observaciones y datos relevantes, lo que contribuirá a un control vectorial más preciso y localizado.</li>
+            </ol>
+        </section>
+
+        <section id="fases-proyecto">
+            <h2>Fases clave del proyecto</h2>
+            <ul>
+                <li>
+                    <strong>Recolección y Exploración de Datos:</strong> Realizar un análisis exploratorio exhaustivo para comprender la distribución de los valores, identificar la presencia de valores nulos y establecer las relaciones iniciales entre las variables. Esta fase también incluyó la visualización de datos mediante gráficos para descubrir patrones y comportamientos relevantes.
+                </li>
+                <li>
+                    <strong>Preparación o Limpieza de Datos:</strong> Normalizar o estandarizar las variables según los requisitos de los algoritmos a utilizar, agregar o eliminar columnas según sea necesario, limpiar y preprocesar los datos, manejando eficientemente los valores nulos y convirtiendo datos categóricos a formatos numéricos cuando sea apropiado.
+                </li>
+                <li>
+                    <strong>Visualización Descriptiva de Datos:</strong> Crear visualizaciones claras y concisas para describir las principales características del conjunto de datos.
+                </li>
+                <li>
+                    <strong>Ingeniería del Modelo:</strong> Seleccionar al menos un algoritmo de aprendizaje automático adecuado para abordar el problema planteado, con una consideración particular de múltiples algoritmos para tareas de clasificación.
+                </li>
+                <li>
+                    <strong>Evaluación del Modelo:</strong> Determinar el rendimiento y la eficiencia de los modelos desarrollados, seleccionando los óptimos con base en métricas de evaluación rigurosas.
+                </li>
+            </ul>
+        </section>
+
+        <section id="metodologia-scrum">
+            <h2>Metodología SCRUM - Proyecto CCCVES: Agilidad y Eficiencia en la Gestión de Proyectos</h2>
+            <h3>¿Qué es SCRUM?</h3>
+            <p>
+                SCRUM es un marco de trabajo ágil que nos permite gestionar proyectos complejos de manera flexible y eficiente. Organiza el trabajo en ciclos cortos e iterativos, conocidos como Sprints, y se basa en la colaboración, la auto-organización del equipo y la entrega continua de valor. Esta metodología nos asegura adaptabilidad y resultados tangibles en cada etapa del Proyecto CCCVES (Control Comunitario de Vectores y Enfermedades).
+            </p>
+
+            <h3>Equipo y Roles</h3>
+            <h4>Product Owner - Jhon Alexander Monsalve</h4>
+            <p>
+                El Product Owner es el visionario del proyecto, responsable de definir QUÉ se debe construir. Jhon Alexander Monsalve representa la voz de las comunidades y las autoridades de salud, asegurando que el proyecto se alinee con las necesidades reales. Sus responsabilidades incluyen:
+            </p>
+            <ul>
+                <li>Representar y articular las necesidades de las comunidades afectadas y las autoridades de salud pública.</li>
+                <li>Priorizar el backlog del producto, definiendo las funcionalidades más valiosas para la plataforma.</li>
+                <li>Establecer y validar los criterios de aceptación para los datos del WMP y las visualizaciones generadas.</li>
+            </ul>
+
+            <h4>Scrum Master - Andrey Estrada González</h4>
+            <p>
+                El Scrum Master es el facilitador y guardián de la metodología, enfocado en CÓMO el equipo trabaja. Andrey Estrada González asegura que el equipo opere sin impedimentos y que los principios de SCRUM se apliquen correctamente. Sus funciones incluyen:
+            </p>
+            <ul>
+                <li>Eliminar cualquier obstáculo o impedimento que pueda afectar la productividad del equipo.</li>
+                <li>Facilitar todas las ceremonias SCRUM (planificación, daily scrum, revisión y retrospectiva).</li>
+                <li>Asegurar el cumplimiento de la metodología SCRUM y fomentar la mejora continua del equipo.</li>
+            </ul>
+
+            <h4>Development Team:</h4>
+            <h5>Andrey Estrada González - Data Scientist</h5>
+            <p>
+                Como especialista en análisis de datos y con un rol clave en la definición del producto, Andrey es fundamental para la inteligencia del proyecto. Sus tareas incluyen:
+            </p>
+            <ul>
+                <li>Procesar y analizar grandes volúmenes de datos del WMP y de fuentes abiertas de Colombia.</li>
+                <li>Desarrollar modelos epidemiológicos predictivos y descriptivos.</li>
+                <li>Contribuir activamente al desarrollo y la funcionalidad de la landing page.</li>
+            </ul>
+
+            <h5>Alessandra Echavarria Castro - Frontend Developer</h5>
+            <p>
+                Alessandra es la experta en la experiencia de usuario, encargada de transformar los datos y análisis en una interfaz intuitiva y atractiva. Sus responsabilidades abarcan:
+            </p>
+            <ul>
+                <li>Desarrollar la plataforma web, asegurando una navegación fluida y accesible.</li>
+                <li>Crear visualizaciones interactivas y dinámicas que faciliten la comprensión de los datos.</li>
+                <li>Implementar un diseño responsive que garantice la accesibilidad desde cualquier dispositivo.</li>
+            </ul>
+
+            <h3>¿Qué es un Sprint?</h3>
+            <p>
+                Un Sprint es un período de tiempo fijo, generalmente de 2 semanas, durante el cual el equipo trabaja intensamente para completar un conjunto de funcionalidades específicas y entregar un incremento de producto potencialmente utilizable. Cada Sprint tiene un objetivo claro y culmina con resultados tangibles y revisables.
+            </p>
+
+            <h3>Sprints del Proyecto</h3>
+            <ul>
+                <li><strong>Sprint 1: Fundación de Datos + Estructura Web:</strong> Establecimiento de la base de datos, recolección inicial de información y desarrollo de la arquitectura fundamental de la plataforma web.</li>
+                <li><strong>Sprint 2: Análisis Epidemiológico + Frontend:</strong> Realización de los primeros análisis de datos epidemiológicos y desarrollo de la interfaz de usuario inicial de la plataforma.</li>
+                <li><strong>Sprint 3: Visualizaciones + Contenido Educativo:</strong> Creación de gráficos interactivos, mapas de riesgo y desarrollo de material educativo clave sobre la tecnología Wolbachia.</li>
+                <li><strong>Sprint 4: Integración Final + Testing:</strong> Unificación de todos los componentes, pruebas exhaustivas de funcionalidad y usabilidad, y preparación para el lanzamiento.</li>
+            </ul>
+
+            <h3>Entregables Finales</h3>
+            <ul>
+                <li><strong>Plataforma web con datos WMP integrados:</strong> Una herramienta centralizada para acceder a información actualizada y análisis del World Mosquito Program.</li>
+                <li><strong>Mapas interactivos de zonas de riesgo:</strong> Visualizaciones geográficas que permiten identificar y monitorear áreas de alta vulnerabilidad.</li>
+                <li><strong>Material educativo sobre Wolbachia:</strong> Recursos informativos para sensibilizar y educar a la comunidad sobre los beneficios de esta tecnología.</li>
+                <li><strong>Sistema de participación comunitaria:</strong> Mecanismos para involucrar activamente a las comunidades en la prevención y control de enfermedades.</li>
+            </ul>
+        </section>
+    </main>
+
+        <!-- Botón Página 2 -->
+    <a href="wolbachia-Project-Data-Analysis.html" class="pag2">Resultados Análisis</a>
+
+    <footer>
+        <p>&copy; 2024 World Mosquito Program Colombia. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
