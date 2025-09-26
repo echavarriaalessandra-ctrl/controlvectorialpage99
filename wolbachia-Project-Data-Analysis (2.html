@@ -1,0 +1,2204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0   " />
+    <title>Proyecto "World Mosquito Program Colombia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+    <!-- Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+ <style>
+        /* CSS integrado */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f8f8f8;
+        }
+
+        .container {
+            width: 85%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 0;
+        }
+
+        header {
+            background-color: #004085;
+            color: white;
+            padding: 25px 0;
+            text-align: center;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+        }
+
+        header .logo {
+            max-width: 120px;
+            margin-bottom: 15px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.8em;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        section {
+            padding: 70px 0;
+            text-align: center;
+        }
+
+        section:nth-of-type(even) {
+            background-color: #eef4f8;
+        }
+
+        #hero {
+            background: linear-gradient(rgba(0, 64, 133, 0.7), rgba(0, 64, 133, 0.7)), url('https://iili.io/KuFBZhP.jpg') no-repeat center center/cover;
+            color: white;
+            padding: 120px 0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+        }
+
+        #hero h2 {
+            font-size: 3.5em;
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+
+        #hero p {
+            font-size: 1.4em;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 18px 35px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        button:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        h3 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: #004085;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h3::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #28a745;
+            border-radius: 2px;
+        }
+
+        /* Table Styles */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 30px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+            border-radius: 12px;
+            background-color: #ffffff;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 12px;
+            font-size: 1em;
+            font-weight: 400;
+            color: #333333;
+            box-shadow: inset 0 0 0 1px #ddd;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        thead tr {
+            background-color: #0056b3;
+            color: #ffffff;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 12px;
+        }
+
+        thead th {
+            padding: 16px 24px;
+            text-align: left;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+
+        tbody tr {
+            background-color: #fefefe;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 8px;
+        }
+
+        tbody tr:hover {
+            background-color: #e6f0fa;
+            box-shadow: 0 4px 12px rgba(0,86,179,0.2);
+        }
+
+        tbody td {
+            padding: 14px 24px;
+            border-bottom: none;
+            vertical-align: middle;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9fbfd;
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .metric-item {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .metric-item:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(0,64,133,0.15);
+        }
+
+        .metric-item h4 {
+            color: #004085;
+            font-size: 1.6em;
+            margin-bottom: 15px;
+        }
+
+        .metric-item p {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #28a745;
+            margin: 0;
+        }
+
+        /* EDA Insights */
+        .eda-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+            max-width: 100%;
+        }
+
+        .eda-item {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .eda-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .eda-item h4 {
+            color: #004085;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Efectos hover para las imágenes de las gráficas */
+        .eda-item img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+            cursor: pointer;
+    }
+
+            /* Efecto alternativo más sutil */
+        .eda-item img:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(0,64,133,0.15);
+    }
+
+        /* Correlation Section */
+        #correlation ul {
+            list-style: none;
+            padding: 0;
+            max-width: 800px;
+            margin: 30px auto;
+            text-align: left;
+        }
+
+        #correlation ul li {
+            background-color: white;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-left: 5px solid #0056b3;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            font-size: 1.1em;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #correlation ul li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .note {
+            font-style: italic;
+            color: #666;
+            margin-top: 40px;
+            font-size: 0.95em;
+        }
+
+        #call-to-action {
+            background-color: #004085;
+            color: white;
+            padding: 90px 0;
+        }
+
+        #call-to-action h2 {
+            font-size: 3em;
+            margin-bottom: 25px;
+        }
+
+        #call-to-action p {
+            font-size: 1.3em;
+            margin-bottom: 45px;
+        }
+
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 25px 0;
+            font-size: 0.9em;
+        }
+
+        /* Contact Modal Styles */
+        .contact-modal-overlay {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .contact-modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 30px;
+            border: none;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        @keyframes slideIn {
+            from {transform: translateY(-50px); opacity: 0;}
+            to {transform: translateY(0); opacity: 1;}
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #004085;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #28a745;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .submit-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 20px;
+            cursor: pointer;
+            display: none;
+            z-index: 999;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .scroll-top:hover {
+            background-color: #218838;
+            transform: scale(1.1);
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 1200px) {
+            .container {
+                width: 90%;
+            }
+            
+            .eda-sections {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 992px) {
+            header h1 {
+                font-size: 2.2em;
+            }
+            
+            #hero h2 {
+                font-size: 2.8em;
+            }
+            
+            #hero p {
+                font-size: 1.2em;
+            }
+            
+            h3 {
+                font-size: 2em;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+            }
+            
+            .metric-item p {
+                font-size: 2em;
+            }
+            
+            .contact-modal-content {
+                width: 95%;
+                margin: 10% auto;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 20px 0;
+            }
+            
+            header {
+                padding: 20px 0;
+            }
+            
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            header p {
+                font-size: 1em;
+            }
+            
+            #hero {
+                padding: 80px 0;
+            }
+            
+            #hero h2 {
+                font-size: 2.2em;
+            }
+            
+            #hero p {
+                font-size: 1em;
+            }
+            
+            button {
+                padding: 15px 25px;
+                font-size: 1em;
+            }
+            
+            h3 {
+                font-size: 1.8em;
+            }
+            
+            section {
+                padding: 50px 0;
+            }
+            
+            .metrics-grid, 
+            .eda-sections {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            table {
+                font-size: 0.85em;
+            }
+            
+            thead th, tbody td {
+                padding: 10px 12px;
+            }
+            
+            .eda-item {
+                padding: 20px;
+            }
+            
+            #correlation ul li {
+                font-size: 1em;
+                padding: 15px;
+            }
+            
+            #call-to-action {
+                padding: 60px 0;
+            }
+            
+            #call-to-action h2 {
+                font-size: 2.2em;
+            }
+            
+            #call-to-action p {
+                font-size: 1.1em;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            
+            .scroll-top {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+            
+            #hero h2 {
+                font-size: 1.8em;
+            }
+            
+            h3 {
+                font-size: 1.5em;
+            }
+            
+            .contact-modal-content {
+                margin: 5% auto;
+                padding: 15px;
+            }
+            
+            .table-container {
+                padding: 15px;
+            }
+            
+            table {
+                font-size: 0.75em;
+            }
+            
+            thead th, tbody td {
+                padding: 8px 10px;
+            }
+            
+            .metric-item {
+                padding: 20px;
+            }
+            
+            .metric-item h4 {
+                font-size: 1.3em;
+            }
+            
+            .metric-item p {
+                font-size: 1.8em;
+            }
+        }
+
+        /* Mejoras adicionales para muy pequeñas pantallas */
+        @media (max-width: 360px) {
+            .container {
+                width: 98%;
+            }
+            
+            header h1 {
+                font-size: 1.3em;
+            }
+            
+            #hero h2 {
+                font-size: 1.6em;
+            }
+            
+            button {
+                padding: 12px 20px;
+                font-size: 0.9em;
+            }
+            
+            .contact-modal-content {
+                padding: 10px;
+            }
+        }
+
+        /* Estilos para animaciones de carga */
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+/* Efectos hover para las imágenes de las gráficas */
+.eda-item img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+    cursor: pointer;
+}
+/* Efecto alternativo más sutil */
+.eda-item img:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 15px 35px rgba(0,64,133,0.15);
+}
+
+.pag1 {
+    /* Apariencia y color */
+    background-color: #004085; /* Color de fondo azul */
+    color: white;             /* Color del texto blanco */
+    border: none;             /* Sin borde */
+    border-radius: 0px;       /* Esquinas redondeadas */
+
+    /* Espaciado */
+    padding: 10px 32px;       /* 15px arriba/abajo, 32px a los lados */
+
+    /* Texto */
+    text-align: center;       /* Centrar el texto */
+    text-decoration: none;    /* Quitar el subrayado del enlace */
+    font-size: 16px;          /* Tamaño de la letra */
+    font-family: Arial, sans-serif; /* Tipo de letra */
+
+    /* Comportamiento */
+    display: flex;             /* 1. Activa Flexbox */
+    justify-content: center;    /* Permite definir ancho y alto */
+    cursor: pointer;          /* Cambia el cursor a una manito */
+}
+
+/* Efecto al pasar el mouse por encima (opcional pero recomendado) */
+.pag1:hover {
+    background-color: #0056b3; /* Un azul más oscuro */
+}
+
+/* Estilos para el Modal con Iframe */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    animation: fadeIn 0.3s ease;
+    pointer-events: none; /* Desactiva interacciones hasta que se abra */
+}
+
+.modal.active { /* Clase agregada por JS al abrir */
+    display: block;
+    pointer-events: auto; /* Activa interacciones */
+}
+
+/* Clase para bloquear scroll en el body (se agrega/quita por JS) */
+body.modal-open {
+    overflow: hidden; /* Bloquea scroll vertical */
+    padding-right: var(--scrollbar-width, 0px); /* Compensa scrollbar; JS setea la variable */
+}
+
+/* Estilos para el contenido del modal */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 900px;
+    max-height: 80vh; /* Limita la altura para pantallas grandes */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease;
+    overflow: hidden; /* Evita desbordes del iframe */
+    display: none; /* Oculto hasta que el modal se active */
+}
+
+.modal.active .modal-content {
+    display: block; /* Muestra el contenido al activar el modal */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    cursor: pointer;
+    z-index: 1001; /* Asegura que esté encima del iframe */
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+#modal-title {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+#modal-description {
+    text-align: center;
+    margin-top: 10px;
+    color: #666;
+    font-style: italic;
+}
+
+/* Estilos para el Iframe (movidos del HTML inline) */
+#modal-iframe {
+    width: 100%;
+    height: 500px; /* Altura por defecto; ajusta según tus HTML detallados */
+    border: none;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+        padding: 10px;
+        max-height: 90vh;
+    }
+    
+    #modal-iframe {
+        height: 400px; /* Ajusta para móviles */
+    }
+}
+
+/* Opcional: Estilos para cuando el modal está abierto (mejora UX) */
+.modal.active {
+    animation: none; /* Desactiva animación si causa issues en scroll */
+}
+
+[9:29 PM, 9/24/2025] Ale:  * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f8f8f8;
+            padding-top: 80px; /* Espacio para el menú fijo */
+        }
+
+        /* Menú horizontal fijo */
+        .horizontal-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #004085;
+            z-index: 1000;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        .menu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        /* Logo y título */
+        .menu-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .menu-logo {
+            width: 40px;
+            height: auto;
+        }
+
+        .menu-title {
+            color: white;
+            font-size: 1.2em;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        /* Items del menú */
+        .menu-nav {
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .menu-item {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 25px 20px;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-item:hover {
+            background-color: #0056b3;
+            border-bottom-color: #28a745;
+            transform: translateY(-2px);
+        }
+
+        .menu-item.active {
+            background-color: #28a745;
+            border-bottom-color: white;
+        }
+
+        /* Botón volver al inicio */
+        .home-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-left: 20px;
+        }
+
+        .home-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Menú móvil toggle */
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .menu-title {
+                font-size: 1em;
+            }
+            
+            .menu-item {
+                padding: 25px 15px;
+                font-size: 0.9em;
+            }
+            
+            .home-btn {
+                padding: 10px 15px;
+                font-size: 0.8em;
+                margin-left: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-container {
+                padding: 0 15px;
+            }
+            
+            …
+ <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Horizontal - World Mosquito Program</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    </style>
+<style>
+        /* Estilos del menú horizontal */
+        .horizontal-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #004085;
+            z-index: 1000;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        .menu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .menu-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .menu-logo {
+            width: 40px;
+            height: auto;
+        }
+
+        .menu-title {
+            color: white;
+            font-size: 1.2em;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-nav {
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .menu-item {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 25px 20px;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-item:hover {
+            background-color: #0056b3;
+            border-bottom-color: #28a745;
+            transform: translateY(-2px);
+        }
+
+        .menu-item.active {
+            background-color: #28a745;
+            border-bottom-color: white;
+        }
+
+        .home-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-left: 20px;
+        }
+
+        .home-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background-color: #28a745;
+            z-index: 1001;
+            transition: width 0.3s ease;
+            width: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .menu-title {
+                font-size: 1em;
+            }
+            
+            .menu-item {
+                padding: 25px 15px;
+                font-size: 0.9em;
+            }
+            
+            .home-btn {
+                padding: 10px 15px;
+                font-size: 0.8em;
+                margin-left: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-container {
+                padding: 0 15px;
+            }
+            
+            .menu-nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #004085;
+                flex-direction: column;
+                gap: 0;
+                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+            }
+            
+            .menu-nav.active {
+                display: flex;
+            }
+            
+            .menu-item {
+                width: 100%;
+                text-align: center;
+                padding: 20px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                border-bottom-width: 1px;
+            }
+            
+            .menu-item:hover {
+                transform: none;
+                border-bottom-color: rgba(255, 255, 255, 0.1);
+            }
+            
+            .home-btn {
+                margin: 15px;
+                width: calc(100% - 30px);
+                margin-left: 15px;
+            }
+            
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .menu-title {
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .menu-container {
+                padding: 0 10px;
+            }
+            
+            .menu-brand {
+                gap: 10px;
+            }
+            
+            .menu-logo {
+                width: 35px;
+            }
+            
+            .menu-title {
+                font-size: 0.8em;
+            }
+            
+            .menu-item {
+                font-size: 0.85em;
+                padding: 15px;
+            }
+        }
+    </style>
+
+
+
+
+<body>
+    <header>
+         <title>Menú Horizontal - World Mosquito Program</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+ <!-- Indicador de progreso -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Menú horizontal -->
+    <nav class="horizontal-menu">
+        <div class="menu-container">
+            <!-- Brand/Logo -->
+            <div class="menu-brand">
+                <img src="https://iili.io/KuFBQTB.png" alt="Logo" class="menu-logo">
+                <span class="menu-title">World Mosquito Program</span>
+            </div>
+
+            <!-- Botón móvil -->
+            <button class="mobile-toggle" id="mobileToggle">☰</button>
+
+            <!-- Navegación -->
+            <div class="menu-nav" id="menuNav">
+                <a href="#hero" class="menu-item" data-target="hero">Inicio</a>
+                <a href="#risk-analysis" class="menu-item" data-target="risk-analysis">Comunas</a>
+                <a href="#key-metrics" class="menu-item" data-target="key-metrics">Métricas</a>
+                <a href="#eda-insights" class="menu-item" data-target="eda-insights">Análisis EDA</a>
+                <a href="#correlation" class="menu-item" data-target="correlation">Insights</a>
+                <a href="#call-to-action" class="menu-item" data-target="call-to-action">Formulario</a>
+                
+                <button class="home-btn" id="homeBtn">Volver al Inicio</button>
+            </div>
+        </div>
+    </nav>
+
+
+        <div class="container">
+            <img src="https://iili.io/KuFBQTB.png" alt="World Mosquito Program Logo" class="logo" />
+            <h1>World Mosquito Program Colombia</h1>
+            <p>Análisis de Riesgo y Factores Socio-Epidemiológicos</p>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="container">
+            <h2>Comprendiendo el Riesgo de Enfermedades Transmitidas por Mosquitos</h2>
+            <p>
+                Explora los factores clave que influyen en la propagación de Dengue, Zika y Chikungunya en Colombia,
+                y cómo Wolbachia está marcando la diferencia.
+            </p>
+            <button id="learn-more-btn">Ver Análisis Completo</button>
+        </div>
+    </section>
+
+    <section id="risk-analysis">
+        <div class="container">
+            <h3>Comunas con Mayor Riesgo Combinado</h3>
+            <p>
+                Nuestro análisis avanzado identifica las áreas geográficas con la mayor vulnerabilidad y carga de enfermedades en Medellín. Al integrar factores socioeconómicos críticos, como la tasa de pobreza y el acceso a servicios básicos, con la prevalencia de Wolbachia, generamos un índice de riesgo combinado que nos permite focalizar esfuerzos y recursos de manera estratégica para maximizar el impacto en la salud comunitaria.
+            </p>
+            <div class="table-container">
+<table border="1" class="dataframe risk-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>ciudad</th>
+      <th>comuna</th>
+      <th>casos totales</th>
+      <th>tasa pobreza prom.</th>
+      <th>tasa no servicios prom.</th>
+      <th>prevalencia wolbachia final</th>
+      <th>índice de riesgo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Medellín</td>
+      <td>Comuna 05</td>
+      <td>254</td>
+      <td>0.284</td>
+      <td>0.062</td>
+      <td>0.527</td>
+      <td>0.833</td>
+    </tr>
+    <tr>
+      <td>Medellín</td>
+      <td>Comuna 04</td>
+      <td>247</td>
+      <td>0.287</td>
+      <td>0.062</td>
+      <td>0.543</td>
+      <td>0.831</td>
+    </tr>
+    <tr>
+      <td>Medellín</td>
+      <td>Comuna 12</td>
+      <td>212</td>
+      <td>0.283</td>
+      <td>0.062</td>
+      <td>0.535</td>
+      <td>0.720</td>
+    </tr>
+    <tr>
+      <td>Medellín</td>
+      <td>Comuna 13</td>
+      <td>228</td>
+      <td>0.284</td>
+      <td>0.060</td>
+      <td>0.542</td>
+      <td>0.718</td>
+    </tr>
+    <tr>
+      <td>Medellín</td>
+      <td>Comuna 10</td>
+      <td>224</td>
+      <td>0.286</td>
+      <td>0.059</td>
+      <td>0.535</td>
+      <td>0.713</td>
+    </tr>
+    <tr>
+      <td>Medellín</td>
+      <td>Comuna 15</td>
+      <td>225</td>
+      <td>0.285</td>
+      <td>0.058</td>
+      <td>0.503</td>
+      <td>0.689</td>
+    </tr>
+    <tr>
+      <td>Medellín</td>
+      <td>Comuna 08</td>
+      <td>214</td>
+      <td>0.285</td>
+      <td>0.059</td>
+      <td>0.544</td>
+      <td>0.686</td>
+    </tr>
+    <tr>
+      <td>Medellín</td>
+      <td>Comuna 07</td>
+      <td>209</td>
+      <td>0.278</td>
+      <td>0.062</td>
+      <td>0.529</td>
+      <td>0.674</td>
+    </tr>
+    <tr>
+      <td>Medellín</td>
+      <td>Comuna 01</td>
+      <td>218</td>
+      <td>0.278</td>
+      <td>0.061</td>
+      <td>0.551</td>
+      <td>0.666</td>
+    </tr>
+    <tr>
+      <td>Medellín</td>
+      <td>Comuna 02</td>
+      <td>186</td>
+      <td>0.284</td>
+      <td>0.061</td>
+      <td>0.526</td>
+      <td>0.659</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+            <p class="note">
+                El índice de riesgo es una métrica ponderada que refleja la complejidad de la situación epidemiológica. Se calcula considerando los casos totales de enfermedades (40%), la tasa de pobreza promedio (30%), la tasa de no servicios básicos promedio (20%) y la prevalencia invertida de Wolbachia (10%). Una mayor prevalencia de Wolbachia se asocia con un menor riesgo, lo que subraya su papel protector.
+            </p>
+        </div>
+    </section>
+
+    <section id="key-metrics">
+        <div class="container">
+            <h3>Métricas Clave del Análisis</h3>
+            <p>Estas métricas proporcionan una visión consolidada de los principales indicadores que sustentan nuestro análisis de riesgo, ofreciendo un panorama general de la situación epidemiológica y socioeconómica en las áreas estudiadas.</p>        
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <h4>Total Casos Confirmados</h4>
+                    <p>7,021</p>
+                </div>
+                <div class="metric-item">
+                    <h4>Prevalencia Wolbachia Promedio</h4>
+                    <p>60.50%</p>
+                </div>
+                <div class="metric-item">
+                    <h4>Tasa Pobreza Promedio</h4>
+                    <p>28.07%</p>
+                </div>
+                <div class="metric-item">
+                    <h4>Tasa No Servicios Promedio</h4>
+                    <p>6.02%</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="eda-insights">
+        <div class="container">
+            <h3>Insights del Análisis Exploratorio de Datos (EDA)</h3>
+            <p>El Análisis Exploratorio de Datos (EDA) es fundamental para comprender las dinámicas subyacentes de las enfermedades transmitidas por mosquitos. A través de diversas visualizaciones, identificamos patrones, anomalías y relaciones entre las variables, lo que nos permite formular hipótesis y guiar estrategias de intervención más efectivas.</p>
+            <div class="eda-sections">
+<div class="eda-item">
+    <h4>Distribución de Casos por Enfermedad</h4>
+    <img
+        src="https://iili.io/KuFB62j.png"
+        alt="Distribución de Casos por Enfermedad"
+        style="max-width: 100%; height: auto; cursor: pointer;"
+        onclick="openModal('modal1', 'https://echavarriaalessandra-ctrl.github.io/controlvectorialpage99/disease_cases_distribution.html', 'Distribución de Casos por Enfermedad')"
+    />
+    <p>La gráfica muestra que el dengue es la enfermedad con mayor número de casos confirmados en las comunas estudiadas, seguido por chikungunya y zika con cifras considerablemente menores.</p>        
+</div>
+
+<div class="eda-item">
+    <h4>Casos Confirmados por Sexo</h4>
+    <img
+        src="https://iili.io/KuFB8Q9.png"
+        alt="Casos Confirmados por Sexo"
+        style="max-width: 100%; height: auto; cursor: pointer;"
+        onclick="openModal('modal1', 'https://echavarriaalessandra-ctrl.github.io/controlvectorialpage99/cases_by_sex.html', 'Casos Confirmados por Sexo')"
+    />
+    <p>La gráfica revela que la incidencia de casos confirmados de dengue, zika y chikungunya es ligeramente mayor en mujeres que en hombres.</p>        
+</div>
+
+<div class="eda-item">
+    <h4>Casos Totales vs Prevalencia de Wolbachia por Comuna</h4>
+    <img
+        src="https://iili.io/KuFBgEu.png"
+        alt="Casos totales vs prevalencia de Wolbachia por comuna"
+        style="max-width: 100%; height: auto; cursor: pointer;"
+        onclick="openModal('modal1', 'https://echavarriaalessandra-ctrl.github.io/controlvectorialpage99/cases_vs_wolbachia.html', 'Casos Totales vs Prev. Wolbachia por Comuna')"
+    />
+    <p>La gráfica evidencia una relación inversa entre la prevalencia de Wolbachia en mosquitos y el total de casos confirmados por comuna, donde comunas con mayor presencia de Wolbachia tienden a reportar menos casos.</p>        
+</div>
+
+<div class="eda-item">
+    <h4>Casos Totales vs Tasa de Pobreza por Comuna</h4>
+    <img
+        src="https://iili.io/KuFBUBe.png"
+        alt="Casos totales vs tasa de pobreza por comuna"
+        style="max-width: 100%; height: auto; cursor: pointer;"
+        onclick="openModal('modal1', 'https://echavarriaalessandra-ctrl.github.io/controlvectorialpage99/cases_vs_poverty.html', 'Casos Totales vs Tasa de Pobreza por Comuna')"
+    />
+    <p>La gráfica muestra una correlación positiva entre la tasa de pobreza y el número total de casos confirmados, indicando que las comunas con mayores niveles de pobreza presentan una mayor incidencia de enfermedades.</p>        
+</div>
+
+<div class="eda-item">
+    <h4>Distribución de Edades de los Casos</h4>
+    <img
+        src="https://iili.io/KuFBPYx.png"
+        alt="Distribución de edades de los casos"
+        style="max-width: 100%; height: auto; cursor: pointer;"
+        onclick="openModal('modal1', 'https://echavarriaalessandra-ctrl.github.io/controlvectorialpage99/age_distribution.html', 'Distribución de Edades de los Casos')"
+    />
+    <p>La gráfica presenta una distribución de edades con una mayor concentración de casos en niños y adultos jóvenes, lo que indica que estos grupos etarios son los más afectados por las enfermedades transmitidas por mosquitos.</p>        
+</div>
+
+<div class="eda-item">
+    <h4>Evolución de Casos Confirmados</h4>
+    <img
+        src="https://iili.io/KuFBspV.png"
+        alt="Evolución de casos confirmados"
+        style="max-width: 100%; height: auto; cursor: pointer;"
+        onclick="openModal('modal1', 'https://echavarriaalessandra-ctrl.github.io/controlvectorialpage99/cases_time_series.html', 'Evolución de Casos Confirmados')"
+    />
+    <p>La gráfica muestra fluctuaciones en la cantidad de casos confirmados a lo largo del tiempo, con picos que podrían corresponder a temporadas de mayor transmisión.</p>        
+</div>
+
+<div class="eda-item">
+    <h4>Matriz de Correlación de Factores de Riesgo</h4>
+    <img
+        src="https://iili.io/KuFBbCF.png"
+        alt="Matriz de correlación de factores de riesgo"
+        style="max-width: 100%; height: auto; cursor: pointer;"
+        onclick="openModal('modal1', 'https://echavarriaalessandra-ctrl.github.io/controlvectorialpage99/correlation_matrix.html', 'Matriz de Correlación de Factores de Riesgo')"
+    />
+    <p>La gráfica destaca una fuerte correlación positiva entre la tasa de pobreza y el total de casos, así como entre la tasa de no servicios básicos y los casos. Además, se observa una correlación negativa entre la prevalencia de Wolbachia y el número de casos, reforzando su papel protector.</p>        
+</div>
+
+<div class="eda-item">
+    <h4>Top 10 Comunas por Índice de Riesgo Combinado</h4>
+    <img
+        src="https://iili.io/KuFBmEg.png"
+        alt="Top 10 comunas por índice de riesgo combinado"
+        style="max-width: 100%; height: auto; cursor: pointer;"
+        onclick="openModal('modal1', 'https://echavarriaalessandra-ctrl.github.io/controlvectorialpage99/top_10_risk_comunas.html', 'Top 10 Comunas por Índice de Riesgo Combinado')"
+    />
+    <p>La gráfica identifica las comunas con mayor índice de riesgo combinado, integrando factores epidemiológicos y socioeconómicos. Las comunas con índices más altos concentran la mayor carga de casos y condiciones adversas.</p>        
+</div>
+
+<div class="eda-item">
+    <h4>Proporción de Casos Confirmados por Enfermedad y Sexo</h4>
+    <img
+        src="https://iili.io/Kck5BVa.png"
+        alt="Proporción de Casos Confirmados por Enfermedad y Sexo"
+        style="max-width: 100%; height: auto; cursor: pointer;"
+        onclick="openModal('modal1', 'https://echavarriaalessandra-ctrl.github.io/controlvectorialpage99/disease_proportion_by_sex_pie.html', 'Proporción Casos por Enfermedad y Sexo')"
+    />
+    <p>La gráfica muestra la proporción de casos confirmados de dengue, zika y chikungunya por sexo, en la cual se puede observar que la tasa de contagio es ligeramente mayor en mujeres que en hombres.</p>        
+</div>
+
+
+
+
+
+
+
+
+
+
+                <div class="eda-item">
+                    <h4>Distribución de Casos por Enfermedad</h4>
+                    <img
+                        src="https://iili.io/KuFB62j.png"
+                        alt="Distribución de Casos por Enfermedad"
+                        style="max-width: 100%; height: auto; cursor: pointer;"
+                        onclick="openModal('modal1', 'disease_cases_distribution.html', 'Distribución de Casos por Enfermedad')"
+                    />
+                    <p>La gráfica muestra que el dengue es la enfermedad con mayor número de casos confirmados en las comunas estudiadas, seguido por chikungunya y zika con cifras considerablemente menores.</p>        
+                </div>
+                <div class="eda-item">
+                    <h4>Casos Confirmados por Sexo</h4>
+                    <img
+                        src="https://iili.io/KuFB8Q9.png"
+                        alt="Casos Confirmados por Sexo"
+                        style="max-width: 100%; height: auto; cursor: pointer;"
+                        onclick="openModal('modal1', 'cases_by_sex.html', 'Casos Confirmados por Sexo')"
+                    />
+                    <p>La gráfica revela que la incidencia de casos confirmados de dengue, zika y chikungunya es ligeramente mayor en mujeres que en hombres.</p>        
+                </div>
+                <div class="eda-item">
+                    <h4>Casos Totales vs Prevalencia de Wolbachia por Comuna</h4>
+                    <img
+                        src="https://iili.io/KuFBgEu.png"
+                        alt="Casos totales vs prevalencia de Wolbachia por comuna"
+                        style="max-width: 100%; height: auto; cursor: pointer;"
+                        onclick="openModal('modal1', 'cases_vs_wolbachia.html', 'Casos Totales vs Prev. Wolbachia por Comuna')"
+                    />
+                    <p>La gráfica evidencia una relación inversa entre la prevalencia de Wolbachia en mosquitos y el total de casos confirmados por comuna, donde comunas con mayor presencia de Wolbachia tienden a reportar menos casos.</p>        
+                </div>
+                <div class="eda-item">
+                    <h4>Casos Totales vs Tasa de Pobreza por Comuna</h4>
+                    <img
+                        src="https://iili.io/KuFBUBe.png"
+                        alt="Casos totales vs tasa de pobreza por comuna"
+                        style="max-width: 100%; height: auto; cursor: pointer;"
+                        onclick="openModal('modal1', 'cases_vs_poverty.html', 'Casos Totales vs Tasa de Pobreza por Comuna')"
+                    />
+                    <p>La gráfica muestra una correlación positiva entre la tasa de pobreza y el número total de casos confirmados, indicando que las comunas con mayores niveles de pobreza presentan una mayor incidencia de enfermedades.</p>        
+                </div>
+                <div class="eda-item">
+                    <h4>Distribución de Edades de los Casos</h4>
+                    <img
+                        src="https://iili.io/KuFBPYx.png"
+                        alt="Distribución de edades de los casos"
+                        style="max-width: 100%; height: auto; cursor: pointer;"
+                        onclick="openModal('modal1', 'age_distribution.html', 'Distribución de Edades de los Casos')"
+                    />
+                    <p>La gráfica presenta una distribución de edades con una mayor concentración de casos en niños y adultos jóvenes, lo que indica que estos grupos etarios son los más afectados por las enfermedades transmitidas por mosquitos.</p>        
+                </div>
+                <div class="eda-item">
+                    <h4>Evolución de Casos Confirmados</h4>
+                    <img
+                        src="https://iili.io/KuFBspV.png"
+                        alt="Evolución de casos confirmados"
+                        style="max-width: 100%; height: auto; cursor: pointer;"
+                        onclick="openModal('modal1', 'cases_time_series.html', 'Evolución de Casos Confirmados')"
+                    />
+                    <p>La gráfica muestra fluctuaciones en la cantidad de casos confirmados a lo largo del tiempo, con picos que podrían corresponder a temporadas de mayor transmisión.</p>        
+                </div>
+                                <div class="eda-item">
+                    <h4>Matriz de Correlación de Factores de Riesgo</h4>
+                    <img
+                        src="https://iili.io/KuFBbCF.png"
+                        alt="Matriz de correlación de factores de riesgo"
+                        style="max-width: 100%; height: auto; cursor: pointer;"
+                        onclick="openModal('modal1', 'correlation_matrix.html', 'Matriz de Correlación de Factores de Riesgo')"
+                    />
+                    <p>La gráfica destaca una fuerte correlación positiva entre la tasa de pobreza y el total de casos, así como entre la tasa de no servicios básicos y los casos. Además, se observa una correlación negativa entre la prevalencia de Wolbachia y el número de casos, reforzando su papel protector.</p>        
+                </div>
+                <div class="eda-item">
+                    <h4>Top 10 Comunas por Índice de Riesgo Combinado</h4>
+                    <img
+                        src="https://iili.io/KuFBmEg.png"
+                        alt="Top 10 comunas por índice de riesgo combinado"
+                        style="max-width: 100%; height: auto; cursor: pointer;"
+                        onclick="openModal('modal1', 'top_10_risk_comunas.html', 'Top 10 Comunas por Índice de Riesgo Combinado')"
+                    />
+                    <p>La gráfica identifica las comunas con mayor índice de riesgo combinado, integrando factores epidemiológicos y socioeconómicos. Las comunas con índices más altos concentran la mayor carga de casos y condiciones adversas.</p>        
+                </div>
+                <div class="eda-item">
+                    <h4>Proporción de Casos Confirmados por Enfermedad y Sexo</h4>
+                    <img
+                        src="https://iili.io/Kck5BVa.png"
+                        alt="Proporción de Casos Confirmados por Enfermedad y Sexo"
+                        style="max-width: 100%; height: auto; cursor: pointer;"
+                        onclick="openModal('modal1', 'disease_proportion_by_sex_pie.html', 'Proporción Casos por Enfermedad y Sexo')"
+                    />
+                    <p>La gráfica muestra la proporción de casos confirmados de dengue, zika y chikungunya por sexo, en la cual se puede observar que la tasa de contagio es ligeramente mayor en mujeres que en hombres.</p>        
+                </div>
+            </div>
+            <p class="note">
+                Estos datos reflejan un análisis exploratorio inicial, crucial para comprender mejor las características de los casos y las interacciones entre los diversos factores.
+            </p>
+        </div>
+    </section>
+
+    <section id="correlation">
+        <div class="container">
+            <h3>Correlaciones entre Factores de Riesgo</h3>
+            <p>La identificación de correlaciones es vital para comprender cómo los diferentes factores interactúan e influyen en la propagación de las enfermedades. Nuestro análisis revela las siguientes relaciones significativas clave:</p>
+            <ul>
+                <li>
+                    Existe una <strong>correlación positiva robusta</strong> entre la <strong>tasa de pobreza</strong> y el
+                    <strong>total de casos confirmados</strong>. Esto sugiere que las comunidades con mayores índices de pobreza son más susceptibles a la incidencia de estas enfermedades, posiblemente debido a condiciones de vivienda, saneamiento y acceso a la salud.
+                </li>
+                <li>
+                    De manera similar, la <strong>tasa de no servicios básicos</strong> (como agua potable, alcantarillado o recolección de residuos) también muestra una <strong>correlación positiva</strong> con el
+                    <strong>total de casos</strong>. La falta de estos servicios esenciales crea entornos propicios para la proliferación de mosquitos y la transmisión de enfermedades.
+                </li>
+                <li>
+                    Crucialmente, la <strong>prevalencia de Wolbachia</strong> tiende a exhibir una <strong>correlación negativa significativa</strong> con el
+                    <strong>total de casos</strong>. Esto refuerza la hipótesis de que una mayor presencia de mosquitos portadores de Wolbachia en una comunidad se asocia con una reducción en la cantidad de casos de enfermedades, validando la efectividad de nuestra intervención.
+                </li>
+                <li>Es importante destacar que todos estos factores, en conjunto, contribuyen de manera interconectada a la configuración del <strong>índice de riesgo combinado</strong>, proporcionando una visión holística de la vulnerabilidad de cada comuna.</li>
+            </ul>
+            <p class="note">
+                Para una visualización detallada de la matriz de correlación, consulte el informe técnico completo.
+            </p>
+        </div>
+    </section>
+
+    <section id="call-to-action">
+        <div class="container">
+            <h2>¡Apoya la Investigación y Expansión!</h2>
+            <p>
+                Tu contribución es vital para continuar nuestra labor en la erradicación de enfermedades transmitidas por
+                mosquitos en Colombia.
+            </p>
+            
+             <button id="contact-btn">Contáctanos y Colabora</button>
+        </div>
+    </section>
+ <!-- Modal para formulario de contacto -->
+    <div id="contactModal" class="contact-modal-overlay">
+        <div class="contact-modal-content">
+            <span class="close">&times;</span>
+            <h2 style="color: #004085; margin-bottom: 30px; text-align: center;">Formulario de Contacto</h2>
+            <form id="contactForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">Nombre *</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Apellidos *</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Teléfono</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="organization">Organización/Institución</label>
+                        <input type="text" id="organization" name="organization">
+                    </div>
+                    <div class="form-group">
+                        <label for="role">Cargo/Posición</label>
+                        <input type="text" id="role" name="role">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="city">Ciudad *</label>
+                    <select id="city" name="city" required>
+                        <option value="">Selecciona tu ciudad</option>
+                        <option value="Medellín">Medellín</option>
+                        <option value="Bogotá">Bogotá</option>
+                        <option value="Cali">Cali</option>
+                        <option value="Barranquilla">Barranquilla</option>
+                        <option value="Cartagena">Cartagena</option>
+                        <option value="Bucaramanga">Bucaramanga</option>
+                        <option value="Pereira">Pereira</option>
+                        <option value="Santa Marta">Santa Marta</option>
+                        <option value="Ibagué">Ibagué</option>
+                        <option value="Pasto">Pasto</option>
+                        <option value="Manizales">Manizales</option>
+                        <option value="Neiva">Neiva</option>
+                        <option value="Villavicencio">Villavicencio</option>
+                        <option value="Armenia">Armenia</option>
+                        <option value="Otra">Otra</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="interest">Área de Interés *</label>
+                    <select id="interest" name="interest" required>
+                        <option value="">Selecciona tu área de interés</option>
+                        <option value="investigacion">Colaboración en Investigación</option>
+                        <option value="implementacion">Implementación de Programas</option>
+                        <option value="educacion">Educación y Divulgación</option>
+                        <option value="financiacion">Financiación y Apoyo</option>
+                        <option value="datos">Intercambio de Datos</option>
+                        <option value="voluntariado">Voluntariado</option>
+                        <option value="otros">Otros</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Mensaje *</label>
+                    <textarea id="message" name="message" placeholder="Cuéntanos sobre tu interés en el proyecto, cómo te gustaría colaborar, o cualquier pregunta específica que tengas..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="newsletter" name="newsletter" style="width: auto; margin-right: 10px;">
+                        Deseo recibir actualizaciones sobre el proyecto y resultados de investigación
+                    </label>
+                </div>
+                
+                <button type="submit" class="submit-btn">Enviar Mensaje</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Botón scroll to top -->
+    <button class="scroll-top" id="scrollTop">↑</button>
+
+    <!-- Botón Página 1 -->
+    <a href="wolbachia-Project-Info.html" class="pag1">Información General</a>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 World Mosquito Program Colombia. Todos los derechos reservados. Análisis basado en datos socio-epidemiológicos y científicos para un futuro más saludable.</p>
+        </div>
+    </footer>
+
+    <script>
+
+     // Variables
+        const mobileToggle = document.getElementById('mobileToggle');
+        const menuNav = document.getElementById('menuNav');
+        const homeBtn = document.getElementById('homeBtn');
+        const progressBar = document.getElementById('progressBar');
+        const menuItems = document.querySelectorAll('.menu-item');
+
+        // Toggle menú móvil
+        mobileToggle.addEventListener('click', function() {
+            menuNav.classList.toggle('active');
+        });
+
+        // Navegación suave
+        menuItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    menuNav.classList.remove('active');
+                    
+                    const headerOffset = 80;
+                    const elementPosition = targetElement.offsetTop;
+                    const offsetPosition = elementPosition - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    updateActiveItem(this);
+                }
+            });
+        });
+
+        // Botón volver al inicio
+        homeBtn.addEventListener('click', function() {
+            menuNav.classList.remove('active');
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            
+            if (menuItems.length > 0) {
+                updateActiveItem(menuItems[0]);
+            }
+        });
+
+        // Actualizar item activo
+        function updateActiveItem(activeItem) {
+            menuItems.forEach(item => item.classList.remove('active'));
+            if (activeItem) {
+                activeItem.classList.add('active');
+            }
+        }
+
+        // Actualizar barra de progreso
+        function updateProgress() {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            progressBar.style.width = scrollPercent + '%';
+        }
+
+        // Detectar sección actual
+        function updateCurrentSection() {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollPos = window.pageYOffset + 120;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    const correspondingItem = document.querySelector([data-target="${sectionId}"]);
+                    if (correspondingItem) {
+                        updateActiveItem(correspondingItem);
+                    }
+                }
+            });
+        }
+
+        // Event listeners
+        window.addEventListener('scroll', function() {
+            updateProgress();
+            updateCurrentSection();
+        });
+
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                menuNav.classList.remove('active');
+            }
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.horizontal-menu')) {
+                menuNav.classList.remove('active');
+            }
+        });
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            if (menuItems.length > 0) {
+                menuItems[0].classList.add('active');
+            }
+            updateProgress();
+            updateCurrentSection();
+        });
+
+
+
+
+        // JavaScript integrado
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos del DOM
+            const learnMoreBtn = document.getElementById('learn-more-btn');
+            const contactBtn = document.getElementById('contact-btn');
+            const contactModal = document.getElementById('contactModal');
+            const closeModal = document.querySelector('.close');
+            const contactForm = document.getElementById('contactForm');
+            const scrollTopBtn = document.getElementById('scrollTop');
+
+            // Función para scroll suave
+            function smoothScroll(target) {
+                const element = document.querySelector(target);
+                if (element) {
+                    const headerOffset = 80;
+                    const elementPosition = element.offsetTop;
+                    const offsetPosition = elementPosition - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+
+            // Botón "Ver Análisis Completo" - Navegar a las gráficas
+            learnMoreBtn.addEventListener('click', function() {
+                smoothScroll('#eda-insights');
+                
+                // Añadir efecto visual a las gráficas
+                setTimeout(() => {
+                    const edaItems = document.querySelectorAll('.eda-item');
+                    edaItems.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.classList.add('fade-in');
+                        }, index * 200);
+                    });
+                }, 500);
+            });
+
+            // Botón "Contáctanos" - Abrir modal
+            contactBtn.addEventListener('click', function() {
+                contactModal.style.display = 'block';
+                document.body.style.overflow = 'hidden'; // Evitar scroll del body
+            });
+
+            // Cerrar modal
+            function closeContactModal() {
+                contactModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+
+            closeModal.addEventListener('click', closeContactModal);
+
+            // Cerrar modal al hacer clic fuera
+            window.addEventListener('click', function(event) {
+                if (event.target === contactModal) {
+                    closeContactModal();
+                }
+            });
+
+            // Cerrar modal con tecla Escape
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && contactModal.style.display === 'block') {
+                    closeContactModal();
+                }
+            });
+
+            // Manejar envío del formulario
+            contactForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                // Obtener datos del formulario
+                const formData = new FormData(contactForm);
+                const formObject = {};
+                
+                for (let [key, value] of formData.entries()) {
+                    formObject[key] = value;
+                }
+                
+                // Simular envío exitoso (aquí conectarías con tu backend)
+                showSuccessMessage();
+                
+                // Limpiar formulario
+                contactForm.reset();
+                
+                // Cerrar modal después de 2 segundos
+                setTimeout(() => {
+                    closeContactModal();
+                }, 2000);
+            });
+
+            // Mostrar mensaje de éxito
+            function showSuccessMessage() {
+                const submitBtn = document.querySelector('.submit-btn');
+                const originalText = submitBtn.textContent;
+                
+                submitBtn.textContent = '¡Mensaje Enviado Exitosamente!';
+                submitBtn.style.backgroundColor = '#28a745';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.backgroundColor = '#28a745';
+                    submitBtn.disabled = false;
+                }, 3000);
+            }
+
+            // Botón scroll to top
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollTopBtn.style.display = 'block';
+                } else {
+                    scrollTopBtn.style.display = 'none';
+                }
+            });
+
+            scrollTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Validación en tiempo real del formulario
+            const requiredFields = ['firstName', 'lastName', 'email', 'city', 'interest', 'message'];
+            
+            requiredFields.forEach(fieldName => {
+                const field = document.getElementById(fieldName);
+                if (field) {
+                    field.addEventListener('blur', function() {
+                        validateField(this);
+                    });
+                    
+                    field.addEventListener('input', function() {
+                        if (this.classList.contains('error')) {
+                            validateField(this);
+                        }
+                    });
+                }
+            });
+
+            function validateField(field) {
+                const isValid = field.checkValidity() && field.value.trim() !== '';
+                
+                if (isValid) {
+                    field.style.borderColor = '#28a745';
+                    field.classList.remove('error');
+                } else {
+                    field.style.borderColor = '#dc3545';
+                    field.classList.add('error');
+                }
+                
+                return isValid;
+            }
+
+            // Validación de email específica
+            const emailField = document.getElementById('email');
+            emailField.addEventListener('input', function() {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const isValidEmail = emailRegex.test(this.value);
+                
+                if (this.value && !isValidEmail) {
+                    this.style.borderColor = '#dc3545';
+                } else if (this.value && isValidEmail) {
+                    this.style.borderColor = '#28a745';
+                } else {
+                    this.style.borderColor = '#ddd';
+                }
+            });
+
+            // Animaciones al hacer scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observar elementos para animaciones
+            const animateElements = document.querySelectorAll('.metric-item, .eda-item, #correlation li');
+            animateElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+
+            // Mejorar la experiencia en dispositivos táctiles
+            if ('ontouchstart' in window) {
+                document.body.classList.add('touch-device');
+                
+                // Mejorar hover effects en dispositivos táctiles
+                const hoverElements = document.querySelectorAll('button, .metric-item, .eda-item');
+                hoverElements.forEach(el => {
+                    el.addEventListener('touchstart', function() {
+                        this.classList.add('touch-active');
+                    });
+                    
+                    el.addEventListener('touchend', function() {
+                        setTimeout(() => {
+                            this.classList.remove('touch-active');
+                        }, 150);
+                    });
+                });
+            }
+
+            // Funcionalidad adicional: búsqueda rápida en la tabla
+            function addTableSearch() {
+                const table = document.querySelector('.risk-table');
+                if (table) {
+                    const searchInput = document.createElement('input');
+                    searchInput.type = 'text';
+                    searchInput.placeholder = 'Buscar comuna...';
+                    searchInput.style.cssText = `
+                        padding: 10px;
+                        margin-bottom: 20px;
+                        border: 2px solid #ddd;
+                        border-radius: 5px;
+                        font-size: 16px;
+                        width: 100%;
+                        max-width: 300px;
+                    `;
+                    
+                    table.parentNode.insertBefore(searchInput, table);
+                    
+                    searchInput.addEventListener('input', function() {
+                        const searchTerm = this.value.toLowerCase();
+                        const rows = table.querySelectorAll('tbody tr');
+                        
+                        rows.forEach(row => {
+                            const comunaCell = row.querySelector('td:nth-child(2)');
+                            if (comunaCell) {
+                                const comunaText = comunaCell.textContent.toLowerCase();
+                                row.style.display = comunaText.includes(searchTerm) ? '' : 'none';
+                            }
+                        });
+                    });
+                }
+            }
+
+            addTableSearch();
+
+            // Funcionalidad de impresión amigable
+            function addPrintStyles() {
+                const printStyles = `
+                    @media print {
+                        .modal, .scroll-top, button { display: none !important; }
+                        body { background: white !important; }
+                        section { page-break-inside: avoid; }
+                        .table-container { overflow: visible !important; }
+                    }
+                `;
+                
+                const styleSheet = document.createElement('style');
+                styleSheet.textContent = printStyles;
+                document.head.appendChild(styleSheet);
+            }
+
+            addPrintStyles();
+
+            console.log('🦟 World Mosquito Program - Sistema cargado exitosamente');
+        });
+    </script>
+    
+<!-- Modal Reutilizable con Iframe -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modal1')">&times;</span>
+        <h3 id="modal-title"></h3>
+        <iframe id="modal-iframe" src="" style="width: 100%; height: 500px; border: none; border-radius: 5px;"></iframe>
+        <p id="modal-description">Cargando detalles de la gráfica...</p>
+    </div>
+</div>
+
+<script>
+let scrollPosition = 0; // Variable global para la posición de scroll
+
+function openModal(modalId, htmlUrl, title) {
+    var modal = document.getElementById(modalId);
+    var modalIframe = document.getElementById('modal-iframe');
+    var modalTitle = document.getElementById('modal-title');
+    var modalDescription = document.getElementById('modal-description');
+    
+    // Captura la posición de scroll INMEDIATAMENTE
+    scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+    
+    // Calcula el ancho del scrollbar para compensar
+    var scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    document.documentElement.style.setProperty('--scrollbar-width', scrollbarWidth + 'px');
+    
+    // Activa el modal y bloquea scroll
+    modal.classList.add('active');
+    document.body.classList.add('modal-open');
+    window.scrollTo(0, scrollPosition); // Fuerza mantener la posición
+    
+    modalIframe.src = htmlUrl; /* Carga el HTML en el iframe */
+    modalTitle.textContent = title;
+    modalDescription.textContent = 'Cargando detalles de la gráfica...';
+    
+    // Opcional: Espera a que cargue el iframe
+    modalIframe.onload = function() {
+        modalDescription.textContent = 'Gráfica detallada cargada. Usa los controles en el iframe si están disponibles.';
+    };
+}
+
+function closeModal(modalId) {
+    var modal = document.getElementById(modalId);
+    var modalIframe = document.getElementById('modal-iframe');
+    
+    // Desactiva el modal y restaura scroll
+    modal.classList.remove('active');
+    document.body.classList.remove('modal-open');
+    document.documentElement.style.setProperty('--scrollbar-width', '0px'); // Limpia variable
+    
+    window.scrollTo(0, scrollPosition); // Restaura posición exacta
+    
+    modalIframe.src = ''; /* Limpia el iframe */
+}
+
+// Cerrar modal al hacer clic en el fondo
+window.onclick = function(event) {
+    var modal = document.getElementById('modal1');
+    if (event.target == modal) {
+        closeModal('modal1');
+    }
+}
+
+// Cerrar con tecla Escape
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeModal('modal1');
+    }
+});
+
+// Opcional: Previene scroll wheel cuando modal está abierto
+document.addEventListener('wheel', function(event) {
+    var modal = document.getElementById('modal1');
+    if (modal.classList.contains('active')) {
+        event.preventDefault();
+    }
+}, { passive: false });
+</script>
+
+</body>
+
+</html>
